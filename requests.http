@@ -1,0 +1,25 @@
+GET https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books HTTP/1.1
+
+###
+GET https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books/2 HTTP/1.1
+
+###
+POST https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Otro libro",
+    "author": "Escritor Famoso",
+    "year": 2024
+}
+
+###
+PUT https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "year": 2029
+}
+
+###
+DELETE https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books/3 HTTP/1.1
