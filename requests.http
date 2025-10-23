@@ -8,9 +8,9 @@ POST https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books HTTP/
 Content-Type: application/json
 
 {
-    "title": "Otro libro",
-    "author": "Escritor Famoso",
-    "year": 2024
+    "title": "Un nuevo libro libro",
+    "author": "Escritor muy Famoso",
+    "year": 2021
 }
 
 ###
