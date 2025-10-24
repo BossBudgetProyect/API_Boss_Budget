@@ -1,25 +1,234 @@
-GET https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books HTTP/1.1
+### Boss Budget API - CRUD Usuarios
+### Base URL: http://localhost:3000
+### Servidor debe estar ejecutándose: npm start
 
-###
-GET https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books/2 HTTP/1.1
+### 1. Verificar salud de la API
+GET http://localhost:3000/health
 
-###
-POST https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books HTTP/1.1
+### 2. Obtener información de la API
+GET http://localhost:3000/
+
+### ========== CRUD USUARIOS ==========
+
+### 3. Crear un nuevo usuario
+POST http://localhost:3000/api/usuarios
 Content-Type: application/json
 
 {
-    "title": "Un nuevo libro libro",
-    "author": "Escritor muy Famoso",
-    "year": 2021
+  "nombre": "Juan Perez",
+  "email": "juan.perez@example.com",
+  "password": "password123",
+  "telefono": "+1234567890",
+  "fecha_nacimiento": "1990-05-15",
+  "rol": "usuario"
 }
 
-###
-PUT https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books/3 HTTP/1.1
+### 4. Crear usuario administrador
+POST http://localhost:3000/api/usuarios
 Content-Type: application/json
 
 {
-    "year": 2029
+  "nombre": "Admin Sistema",
+  "email": "admin@bossbudget.com",
+  "password": "admin123",
+  "telefono": "+1234567891",
+  "fecha_nacimiento": "1985-01-01",
+  "rol": "admin"
 }
 
+### 5. Crear usuario moderador
+POST http://localhost:3000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Moderador Test",
+  "email": "moderador@example.com",
+  "password": "mod123",
+  "telefono": "+1234567892",
+  "rol": "moderador"
+}
+
+### 6. Obtener todos los usuarios (paginado)
+GET http://localhost:3000/api/usuarios?page=1&limit=10
+
+### 7. Obtener usuarios con filtros (sin búsqueda)
+GET http://localhost:3000/api/usuarios?rol=usuario&activo=true
+
+### 8. Obtener usuario por ID (reemplazar :id con un ID real)
+GET http://localhost:3000/api/usuarios/1
+
+### 9. Actualizar usuario (reemplazar :id con un ID real)
+PUT http://localhost:3000/api/usuarios/1
+Content-Type: application/json
+
+{
+  "nombre": "Juan Carlos Pérez",
+  "telefono": "+1234567899",
+  "fecha_nacimiento": "1990-05-20"
+}
+
+### 10. Cambiar contraseña de usuario
+PUT http://localhost:3000/api/usuarios/1
+Content-Type: application/json
+
+{
+  "password": "nuevapassword123"
+}
+
+### 11. Cambiar rol de usuario
+PUT http://localhost:3000/api/usuarios/1
+Content-Type: application/json
+
+{
+  "rol": "moderador"
+}
+
+### 12. Activar/Desactivar usuario (toggle status)
+PATCH http://localhost:3000/api/usuarios/1/toggle-status
+
+### 13. Eliminar usuario (soft delete - reemplazar :id con un ID real)
+DELETE http://localhost:3000/api/usuarios/1
+
+### 14. Eliminar usuario permanentemente (reemplazar :id con un ID real)
+DELETE http://localhost:3000/api/usuarios/1/permanent
+
+### 15. Obtener estadísticas de usuarios
+GET http://localhost:3000/api/usuarios/stats
+
+### ========== AUTENTICACIÓN ==========
+
+### 16. Autenticar usuario
+POST http://localhost:3000/api/usuarios/authenticate
+Content-Type: application/json
+
+{
+  "email": "juan.perez@example.com",
+  "password": "password123"
+}
+
+### 17. Autenticar administrador
+POST http://localhost:3000/api/usuarios/authenticate
+Content-Type: application/json
+
+{
+  "email": "admin@bossbudget.com",
+  "password": "admin123"
+}
+
+### ========== CASOS DE ERROR ==========
+
+### 18. Crear usuario con email duplicado (debe fallar)
+POST http://localhost:3000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Duplicado",
+  "email": "juan.perez@example.com",
+  "password": "password123"
+}
+
+### 19. Crear usuario con datos inválidos (debe fallar)
+POST http://localhost:3000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "A",
+  "email": "email-invalido",
+  "password": "123"
+}
+
+### 20. Obtener usuario inexistente (debe fallar)
+GET http://localhost:3000/api/usuarios/99999
+
+### 21. Actualizar usuario inexistente (debe fallar)
+PUT http://localhost:3000/api/usuarios/99999
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Inexistente"
+}
+
+### 22. Autenticación con credenciales incorrectas (debe fallar)
+POST http://localhost:3000/api/usuarios/authenticate
+Content-Type: application/json
+
+{
+  "email": "juan.perez@example.com",
+  "password": "password-incorrecta"
+}
+
+### ========== CASOS ADICIONALES ==========
+
+### 23. Crear usuario con caracteres especiales en el nombre
+POST http://localhost:3000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "José María González",
+  "email": "jose.gonzalez@example.com",
+  "password": "password123",
+  "telefono": "+1234567893",
+  "rol": "usuario"
+}
+
+### 24. Crear usuario con todos los campos opcionales
+POST http://localhost:3000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "María López",
+  "email": "maria.lopez@example.com",
+  "password": "password123",
+  "telefono": "+1234567894",
+  "fecha_nacimiento": "1992-08-25",
+  "rol": "usuario"
+}
+
+### 25. Buscar usuarios por nombre (TEMPORALMENTE DESHABILITADO)
+# GET http://localhost:3000/api/usuarios?search=Juan
+
+### 26. Buscar usuarios por email (TEMPORALMENTE DESHABILITADO)
+# GET http://localhost:3000/api/usuarios?search=juan@example.com
+
+### 27. Obtener solo usuarios activos
+GET http://localhost:3000/api/usuarios?activo=true
+
+### 28. Obtener solo usuarios inactivos
+GET http://localhost:3000/api/usuarios?activo=false
+
+### 29. Obtener usuarios por rol específico
+GET http://localhost:3000/api/usuarios?rol=admin
+
+### 30. Obtener usuarios con paginación personalizada
+GET http://localhost:3000/api/usuarios?page=2&limit=5
+
+### 31. Actualizar múltiples campos de usuario
+PUT http://localhost:3000/api/usuarios/1
+Content-Type: application/json
+
+{
+  "nombre": "Juan Carlos Pérez Actualizado",
+  "telefono": "+1234567899",
+  "fecha_nacimiento": "1990-05-20",
+  "rol": "moderador"
+}
+
+### 32. Verificar que la contraseña no se expone en respuestas
+GET http://localhost:3000/api/usuarios/1
+
+### ========== INSTRUCCIONES DE USO ==========
+### 
+### Para usar este archivo:
+### 1. Asegúrate de que el servidor esté ejecutándose: npm start
+### 2. Instala la extensión "REST Client" en VS Code
+### 3. Haz clic en "Send Request" sobre cada petición
+### 4. Los IDs de usuario se generan automáticamente, ajusta los números según sea necesario
+### 5. Las peticiones están organizadas por funcionalidad
 ###
-DELETE https://ubiquitous-enigma-x5xwwr44qqqwcp976-5000.app.github.dev/books/3 HTTP/1.1
+### Notas:
+### - Las contraseñas se hashean automáticamente
+### - Los emails deben ser únicos
+### - El campo 'password' nunca se devuelve en las respuestas
+### - Los usuarios eliminados se marcan como inactivos (soft delete)
+### - La funcionalidad de búsqueda está temporalmente deshabilitada
+### - Los filtros por rol y estado funcionan correctamente

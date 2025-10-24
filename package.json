@@ -2,21 +2,30 @@
   "name": "api_boss_budget",
   "version": "1.0.0",
   "description": "API para la aplicacion web Boss Budget",
-  "main": "index.js",
-  "type": "module",
+  "main": "main.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "node main.js",
+    "start": "node main.js"
   },
   "keywords": [
     "node",
-    "js"
+    "js",
+    "express",
+    "sequelize",
+    "mysql",
+    "sqlite"
   ],
   "author": "BossBudget",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "sequelize": "^6.35.0",
+    "mysql2": "^3.6.5",
+    "sqlite3": "^5.1.6",
+    "bcryptjs": "^2.4.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.0.2"
   }
 }
